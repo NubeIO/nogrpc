@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+
+option go_package = "./;pb";
+
+package App.Grpc.Hello;
+import "google/api/annotations.proto";
+
+
+service GreeterService {
+    rpc SayHello (HelloReq) returns (HelloReply){
+        option (google.api.http) = {
+            get: "/say/{name}"
+        };
+    };
+}
+
+
+message HelloReq {
+	string name = 1;
+}
+
+
+message HelloReply {
+    string name = 1;
+    string message = 2;
+}

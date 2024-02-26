@@ -1,0 +1,21 @@
+version: v1
+plugins:
+  - name: go
+    out: clients/go
+    opt:
+      - paths=source_relative
+  - name: go-grpc
+    out: clients/go
+    opt:
+      - paths=source_relative
+  - name: grpc-gateway
+    out: clients/go
+    opt:
+      - paths=source_relative
+      - generate_unbound_methods=true
+
+#With this file in place, you can generate your files using buf generate.
+#For a complete example of using buf generate to generate protobuf stubs,
+#see the boilerplate repo: https://github.com/johanbrandhorst/grpc-gateway-boilerplate.
+#For more information on generating the stubs with buf, see the official documentation
+#https://docs.buf.build/generate-usage
