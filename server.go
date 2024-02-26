@@ -444,7 +444,6 @@ func (s *Service) httpServerShutdown() {
 }
 
 // ===The following method is mainly for grpc server and http gw server to start on one port==//
-// referr: https://github.com/daheige/go-proj/blob/master/cmd/rpc/http/server.go#L123
 
 // StartGRPCAndHTTPServer grpc server and grpc gateway port share a port
 // error: rpc error: code = Unavailable desc = all SubConns are in TransientFailure,
@@ -635,7 +634,7 @@ func (s *Service) ServeFile(w http.ResponseWriter, r *http.Request, _ map[string
 		dir, _ = os.Getwd()
 	}
 
-	// check if the file exists and fobid showing directory
+	// check if the file exists and forbid showing directory
 	path := filepath.Join(dir, r.URL.Path)
 	if fileInfo, err := os.Stat(path); os.IsNotExist(err) || fileInfo.IsDir() {
 		http.NotFound(w, r)
