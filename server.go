@@ -175,6 +175,17 @@ func NewService(opts ...Option) *Service {
 	for _, annotator := range s.annotators {
 		s.muxOptions = append(s.muxOptions, gRuntime.WithMetadata(annotator))
 	}
+	md := metadata.New(map[string]string{})
+	s.muxOptions = append(s.muxOptions, gRuntime.WithMetadata(func(ctx context.Context, r *http.Request) metadata.MD {
+
+		if method, ok := gRuntime.RPCMethod(ctx); ok {
+			md.Append("method", method)
+		}
+		if pattern, ok := gRuntime.HTTPPathPattern(ctx); ok {
+			md.Append("pattern", pattern)
+		}
+		return md
+	}))
 
 	s.mux = gRuntime.NewServeMux(s.muxOptions...)
 
